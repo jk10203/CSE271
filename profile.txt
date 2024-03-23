@@ -1,0 +1,83 @@
+#
+# .profile
+#
+# commands in this file are executed every time you log on.
+#
+#
+
+# ... if you have a bin directory in your home directory,
+# ... prepend it to your PATH.
+if [ -d $HOME/bin ]; then
+  PATH=$HOME/bin:$PATH
+fi
+
+export MANPATH PATH TERM
+
+# ... this does not work for sh or ksh
+if [ -n "$BASH" ]; then
+  # ... explicitly setting HOME is needed locally to make use of the
+  # ... bash \w expansion in the shell prompt.
+  REALHOME=$HOME
+  HOME=`pwd`
+  export HOME REALHOME
+  PS1="`hostname`:\w% "; export PS1
+  # ... that's the basic version.  the next version limits the current
+  # ... directory name displayed to two nodes.  uncomment if you want
+  # ... to use this.
+  # PS1='\h ${PWD#${PWD%/*/*}/} $ '; export PS1
+  # ... auto-logout after one day of inactivity.
+  TMOUT=86400; export TMOUT
+  # ... source .bashrc if present.
+  if [ -f .bashrc ]; then
+  . .bashrc
+  fi
+fi
+# Comment the next line if you want core files, or enter enable core
+# files for a single session with 'ulimit -c unlimited'.
+ulimit -c 0
+# Clear the screen on logout ...
+trap "clear" 0
+#
+
+# place current directory (.) in front of search path
+export PATH=.:$PATH
+
+# add $HOME/bin and current directory to PATH
+if [ -d $HOME/bin ]; then
+PATH=$HOME/bin:$PATH
+else
+echo "You should create a $HOME/bin directory"
+fi                 
+
+# prevent overwriting when redirecting output from a command
+set -o noclobber
+
+if [ -f $HOME/.bashrc ]; then
+. $HOME/.bashrc
+fi
+
+# colors
+if [ -e ~/.colors ]; then
+  source ~/.colors
+fi
+export PS1="${yellow}\u${blue}@\H:${cyan}\w\$ $reset"
+#PS1: The PS1 (Prompt Statement One) prompt is displayed before each command; 
+# it is also known as the primary prompt. It is basically the first string that
+# you see at the command line that tells you information (that you can customize) 
+# about the current shell environment. You use the PS1 variable when you want to 
+# customize this primary prompt with specific information or specific colors.
+#PS2: The PS2 prompt is the secondary prompt and is shown when waiting for a user
+# input. It is an indication that the shell is waiting for an input in order to 
+# complete or execute a command (continuation prompt). You use the PS2 prompt when 
+# a command is multi-lined or when, due to a specific syntax, requires input on the 
+# next line. You can also modify the single character used to indicate the continuation 
+# of a line into the next line (usually '>' is used) and the style.
+#PS3: The PS3 prompt is used with the 'select' command when waiting for a user input based 
+# on a assortment of choices/selections/menu options. The PS3 prompt is used when the select
+# command is used to display an interactive menu of choices and when waiting for the respective
+# input.
+#PS4: The PS4 prompt is used when executing the debugging mode for BASH -x [script.sh]. The debug mode
+# helps track down where an error might have occurred by showing each line before it is executed.
+# The default -x debugging mode uses '++', whereas you can use PS4 to customize it with more information
+# like line number or script name ($LINENO and $0, respectively).
+

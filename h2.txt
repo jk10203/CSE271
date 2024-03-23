@@ -1,0 +1,25 @@
+Key Suggestions
+1) use the 'history' command in order to get your most frequently used UNIX command
+This basically gives you a list of commands you have used previously so you can reference a past command you've used.
+This can be especially useful if you pair it with grep "keyword" (history|grep"keyword" where | is a pipe).
+This will get that command from the history on the machine.
+2) use aliases and define them in the bashrc file. This is especially time-saving and handy 
+especially when the command you want to run is hyper-specific and long to write out manually.
+This also ties in with using the type command in order to define an alias you might have forgotten the meaning of. Paired together, using aliases and type can be time-saving.
+3) using ! to execute the last command. Because linux commands are pretty customizable to a large degree,
+it will definitely be time-saving to just use ![command without parameters] to enter the last
+command that was used with the set parameter. It basically invokes the previous run of that command.
+4) using the command grep and find also seems like it will be very useful in searching for 
+something in a file or directory. For grep, the parameters -A, -B, and -C seem to be the most
+useful and common. grep -A 2 ghouls filex.txt will look through the filex file and shows 2 lines
+AFTER the line in which "ghouls" is found. It is the same process for -B in which it will be 2
+lines BEFORE the line in whch "ghouls" is found. -C does both in that it would do 2 lines
+BEFORE and AFTER the line in which "ghouls" is found. The command find also works similar to grep
+in that they are both searching and listing the results. However, find differs in that it searches on a 
+system level (the files themselves, NOT the content inside the file). Some common parameters are
+ -mtime, -i, . and .., -name, and -type. The parameter -mtime is used to look for files based 
+on the time it was last modified. For instance, find . -mtime 1 finds the files that were 
+modified in exactly 1 day (-1 is for less than 1 day and +1 is for more than 1 day).
+The parameter -i is used for case insensitive search. The parameter . and .. mean current and parent directory, respectively.
+The parameter -name and -type is used to establish the name you want to find and the type
+, respectively.
